@@ -46,8 +46,7 @@ public class EchoClient
 			 * 비동기 입출력 메서드인 connect를 호출한다. 
 			 * connect 메서드는 메서드의 호출 결과로 ChannelFuture 객체를 돌려주는데 이 객체를 통해서 비동기 메서드의 처리 결과를 확인할 수 있다.
 			 * ChannelFuture 객체의 sync 메서드는 ChannelFuture 객체의 요청이 완료될 때까지 대기한다.
-			 * 단, 요청이 실패하면 예외를 던진다. 즉 connect 메서드의 처리가 완료될때까지 다음 라인으로 진행하지 않는다. 
-			*/
+			 * 단, 요청이 실패하면 예외를 던진다. 즉 connect 메서드의 처리가 완료될때까지 다음 라인으로 진행하지 않는다. */
 			ChannelFuture f = bs.connect("localhost", 8888).sync();
 			f.channel().closeFuture().sync();
 		} finally {
