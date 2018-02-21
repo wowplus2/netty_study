@@ -53,8 +53,8 @@ public class EchoServer
 			f.channel().closeFuture().sync();
 		} finally {
 			// TODO: handle finally clause
-			bossGrp.shutdownGracefully();
 			workerGrp.shutdownGracefully();
+			bossGrp.shutdownGracefully();
 		}
 	}
 
