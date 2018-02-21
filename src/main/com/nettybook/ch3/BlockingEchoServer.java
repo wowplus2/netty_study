@@ -13,6 +13,7 @@ public class BlockingEchoServer
 {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
+		// Oio : Old-Blocking-IO의 약자
 		EventLoopGroup bossGrp = new OioEventLoopGroup(1);
 		EventLoopGroup workderGrp = new OioEventLoopGroup();
 		
@@ -31,6 +32,7 @@ public class BlockingEchoServer
 			});
 			
 			ChannelFuture f = sb.bind(8888).sync();
+			
 			f.channel().closeFuture().sync();
 		} finally {
 			// TODO: handle finally clause
