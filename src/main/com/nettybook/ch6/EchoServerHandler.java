@@ -16,10 +16,17 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter
 		ByteBuf rMsg = (ByteBuf) msg;
 		System.out.println("channelRead: " + rMsg.toString(Charset.defaultCharset()));
 		
+		/* ChannelHandlerContext를 통해서 네티 프레임워크에서 초기화된 ByteBufAllocator를 참조할 수 있다.
+		 * ByteBufAllocator는 바이트 버퍼 풀을 관리하는 인터페이스이며 플렛폼의 지원 여부에 따라 
+		 * 다이렉트 버퍼와 힙 버퍼 풀을 생성한다.
+		 * 기본적으로 다이렉트 버퍼 풀을 생성하며 애플리케이션 개발자의 필요에 따라 힙 버퍼 풀을 생성할 수도 있다. */
 		ByteBufAllocator byteBufAllocator = ctx.alloc();
+		/* ByteBufAllocator의 buffer 메서드를 사용하여 생성된 바이트 버퍼는 BytebufAllocator의 풀에서 관리되며
+		 * 바이트 버퍼를 채널에 기록하거나 명시적으로 release 메서드를 호출하면 바이트 버퍼 풀로 돌아간다. */
 		ByteBuf newBuffer = byteBufAllocator.buffer();
 		
 		// newBuffer 사용
+		/* write 메서드의 인수로 바이트 버퍼가 입력되면 데이터를 채널에 기록하고 난 뒤에 버퍼 풀로 돌아간다. */
 		ctx.write(msg);
 	}
 
