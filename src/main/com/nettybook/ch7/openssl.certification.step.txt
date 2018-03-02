@@ -1,0 +1,154 @@
+CMD>openssl x509 -noout -text -in ./nettybook.crt
+Certificate:
+    Data:
+        Version: 1 (0x0)
+        Serial Number:
+            87:6e:8c:f7:c1:e7:a8:c0
+/* 인증서의 전자서명에 사용된 알고리즘을 표시한다.
+   여기서는 sha256 해시함수와 RSA 공개키 알고리즘이 사용되었다. 
+*/
+    Signature Algorithm: sha256WithRSAEncryption
+/* 인증서를 발금한 기관의 정보를 출력한다.
+   CSR파일을 생성할 때 입력했던 값들이 출력된다.
+*/
+        Issuer: C=kr, ST=seoul, L=seoul, O=personal, OU=wowplus, CN=netty.wowplus.pe.kr/emailAddress=wowplus2@gmail.com
+/* 인증서 시작일자와 만료일자가 표시된다.
+*/
+        Validity
+            Not Before: Mar  2 08:53:08 2018 GMT
+            Not After : Feb 21 08:53:08 2019 GMT
+        Subject: C=kr, ST=seoul, L=seoul, O=personal, OU=wowplus, CN=netty.wowplus.pe.kr/emailAddress=wowplus2@gmail.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:aa:46:5b:99:1a:7f:8d:40:49:7f:7c:45:51:ab:
+                    0a:cb:75:4c:d5:0b:1e:e7:d6:68:5f:3b:de:54:12:
+                    34:37:f5:1d:c3:b5:21:4b:a1:0e:9c:9a:7d:6a:4b:
+                    9c:f9:26:48:2d:fe:d4:d0:cc:9e:b8:37:c3:82:09:
+                    4c:e1:6f:de:36:6e:ba:0b:ba:fa:64:b8:0d:fb:c5:
+                    1a:87:e6:90:dc:b0:dc:aa:f1:78:bc:0f:5b:31:50:
+                    6e:96:95:64:3d:1a:5e:67:b0:7a:7b:ef:e5:35:da:
+                    27:a0:97:c5:e6:50:b4:ac:f3:be:c9:75:ef:57:cb:
+                    49:16:66:4c:f5:62:53:95:df:46:f6:32:a2:5e:6e:
+                    0b:c3:cb:06:41:52:4a:52:b2:4d:e0:3c:11:f6:01:
+                    85:88:71:91:3a:73:8f:34:10:07:3c:fc:8e:fb:ff:
+                    9b:94:e4:b7:fc:27:d8:d9:b2:5b:ee:17:f7:4b:aa:
+                    63:1f:1b:34:a4:2e:1b:37:53:a7:ac:c2:9a:b5:42:
+                    79:19:bd:bc:6c:10:5d:ef:4d:bb:57:c6:ab:bc:1c:
+                    30:8c:2b:ec:b1:39:71:51:ad:dd:6b:67:d3:a1:f5:
+                    b0:b4:83:f1:cf:64:5d:e2:c6:25:6a:9d:aa:fb:dd:
+                    24:8b:39:b1:5a:69:6b:26:aa:58:68:12:f2:48:d6:
+                    4a:ad
+                Exponent: 65537 (0x10001)
+    Signature Algorithm: sha256WithRSAEncryption
+         2f:d2:b7:fe:38:04:22:24:71:4d:76:e9:76:be:1f:e1:f5:4d:
+         e7:5c:a7:6f:85:4e:8a:15:87:96:e4:dc:59:7d:ce:e4:b1:9c:
+         fc:69:5a:eb:e4:af:03:bb:fc:b1:16:38:cb:9c:43:18:7e:83:
+         26:e3:86:9b:6d:6f:27:2e:a0:27:a5:25:b4:40:01:da:52:8b:
+         a8:20:4b:50:58:f1:a8:8f:93:e6:21:a5:37:6a:b3:9c:94:65:
+         8a:c5:c2:b9:75:01:ce:0e:15:c4:1e:36:96:82:aa:45:af:b3:
+         97:99:eb:0e:d9:37:8c:0d:36:ad:ae:73:e4:d0:10:85:8d:96:
+         08:ee:75:2d:0d:ff:ce:d2:82:86:d5:ce:89:a7:eb:5b:6f:52:
+         49:26:42:c3:23:8a:cc:74:9d:f6:2e:cc:6d:3f:16:ca:90:a0:
+         71:b0:d7:65:88:93:81:9f:ee:dc:aa:9d:0b:c3:26:d0:9a:3e:
+         3a:93:cb:f6:38:d9:5f:99:c7:2c:3c:d8:ae:90:3e:14:9d:e2:
+         9d:87:70:d5:b0:41:ae:d2:5e:25:8d:f8:06:d7:a5:fc:c4:30:
+         12:7d:02:97:4b:15:cf:5b:ef:ff:db:65:b9:1d:17:bd:be:7a:
+         31:90:08:df:40:ad:73:af:3f:0f:e0:67:bc:ef:4d:6a:75:6f:
+         64:48:3f:f8
+
+CMD>openssl rsa -noout -text -in wowpluskey.pem
+/* 개인키의 암호를 확인한다. 처음 개인키를 만들 때 입력한 암호를 입력한다. */
+Enter pass phrase for wowpluskey.pem:
+/* 개인키의 생성에 사용된 비트수를 표시한다. 개인키를 만들 때 사용한 명령의 맨 마지막 값이다. */
+Private-Key: (2048 bit)
+modulus:
+    00:aa:46:5b:99:1a:7f:8d:40:49:7f:7c:45:51:ab:
+    0a:cb:75:4c:d5:0b:1e:e7:d6:68:5f:3b:de:54:12:
+    34:37:f5:1d:c3:b5:21:4b:a1:0e:9c:9a:7d:6a:4b:
+    9c:f9:26:48:2d:fe:d4:d0:cc:9e:b8:37:c3:82:09:
+    4c:e1:6f:de:36:6e:ba:0b:ba:fa:64:b8:0d:fb:c5:
+    1a:87:e6:90:dc:b0:dc:aa:f1:78:bc:0f:5b:31:50:
+    6e:96:95:64:3d:1a:5e:67:b0:7a:7b:ef:e5:35:da:
+    27:a0:97:c5:e6:50:b4:ac:f3:be:c9:75:ef:57:cb:
+    49:16:66:4c:f5:62:53:95:df:46:f6:32:a2:5e:6e:
+    0b:c3:cb:06:41:52:4a:52:b2:4d:e0:3c:11:f6:01:
+    85:88:71:91:3a:73:8f:34:10:07:3c:fc:8e:fb:ff:
+    9b:94:e4:b7:fc:27:d8:d9:b2:5b:ee:17:f7:4b:aa:
+    63:1f:1b:34:a4:2e:1b:37:53:a7:ac:c2:9a:b5:42:
+    79:19:bd:bc:6c:10:5d:ef:4d:bb:57:c6:ab:bc:1c:
+    30:8c:2b:ec:b1:39:71:51:ad:dd:6b:67:d3:a1:f5:
+    b0:b4:83:f1:cf:64:5d:e2:c6:25:6a:9d:aa:fb:dd:
+    24:8b:39:b1:5a:69:6b:26:aa:58:68:12:f2:48:d6:
+    4a:ad
+publicExponent: 65537 (0x10001)
+privateExponent:
+    00:96:b9:49:03:b1:ad:0e:bf:c5:4f:90:15:5c:41:
+    67:80:ca:08:84:dd:1f:32:61:5c:6a:50:78:71:3a:
+    db:f6:5c:87:48:61:e1:63:2c:e1:de:45:f2:96:50:
+    f0:56:ab:48:61:4e:9d:db:66:05:69:54:13:3f:dc:
+    33:ad:aa:74:ad:02:3e:b5:7b:81:81:fe:5a:82:6e:
+    eb:19:39:43:29:d7:74:bd:ec:99:ce:fe:58:de:c2:
+    2f:e2:23:c3:63:43:20:25:f0:d5:bb:37:93:51:a4:
+    16:47:d5:91:5c:5a:3c:54:8c:3e:69:de:77:4a:e3:
+    ab:82:a4:73:a3:12:b2:a2:8a:5c:0a:d7:8a:f1:f0:
+    1f:df:19:a4:5e:ea:03:2e:1f:98:1b:46:37:ad:7f:
+    74:92:6d:8f:1a:66:9a:74:d6:73:16:9c:9f:33:02:
+    2e:8c:45:59:22:17:ac:a6:62:b6:8b:9d:99:a0:36:
+    eb:7f:4b:a9:5f:ed:2a:7f:00:94:b8:6a:f9:c2:5f:
+    d0:0a:61:fe:ce:d6:de:18:5d:11:01:fa:69:56:51:
+    cd:cc:db:e9:75:50:0f:e6:ad:bd:19:4d:3a:ad:24:
+    0d:15:42:af:ea:b0:f0:b0:cd:87:d9:6e:b8:50:be:
+    4f:3f:b0:44:a5:cc:d4:7a:07:0a:98:2d:90:f8:f2:
+    31:81
+prime1:
+    00:db:e2:49:12:aa:28:ff:e8:21:a7:e0:26:5e:f2:
+    08:78:6a:75:18:91:16:b9:ca:2a:67:10:01:d5:45:
+    29:63:4c:67:de:0d:a8:2a:e6:35:d7:72:b7:90:1d:
+    22:35:23:ce:50:e9:8f:76:8f:ba:2d:3f:fe:3f:03:
+    04:44:e9:26:6d:82:cb:9f:90:e5:77:aa:68:22:c5:
+    e8:92:6d:81:ef:82:6f:0f:88:a3:3e:bf:e9:b0:f0:
+    c2:eb:11:34:1a:5d:12:a9:c5:fa:3e:dd:17:96:a7:
+    4e:95:c3:e4:fe:e0:96:6e:8c:87:e4:5d:a3:0a:fb:
+    0b:1c:0b:78:12:20:b5:eb:e9
+prime2:
+    00:c6:3e:19:ef:af:c5:ce:61:98:3b:3b:a2:48:03:
+    1d:a2:b7:89:5b:7c:26:80:78:08:7e:bc:02:40:cf:
+    99:cd:bb:df:e9:f6:f7:91:61:3a:8c:21:38:70:b5:
+    4b:21:45:cb:74:28:19:90:f0:5c:35:01:34:23:88:
+    8c:17:31:8b:8a:09:c5:43:c9:79:c6:55:25:57:48:
+    b1:eb:94:8e:26:a4:a1:71:70:a5:e6:70:92:81:11:
+    71:81:55:7a:93:b6:be:a7:b6:b5:07:3e:7a:e7:86:
+    e1:d6:8b:59:a5:7d:56:23:6c:ee:2f:62:b0:31:ff:
+    c2:96:cb:3e:76:fe:dc:62:25
+exponent1:
+    6e:fe:69:18:8c:e0:a9:5d:4a:2f:ed:cc:30:bd:48:
+    5d:50:8f:cf:58:dd:f9:e6:fd:44:8d:25:ff:bc:2b:
+    ca:3e:35:68:37:c8:9d:ef:1b:5a:a8:43:d4:f1:7f:
+    e5:07:30:0c:53:f9:e1:45:68:1b:93:64:09:f6:c1:
+    de:ef:3a:40:a9:77:94:12:96:62:b3:98:61:85:39:
+    83:40:d8:08:48:f5:3b:08:24:2f:76:bc:c6:5e:a2:
+    65:fa:87:2c:8f:b2:ee:14:4b:e0:13:c6:e6:7b:8a:
+    05:bb:9f:0a:b1:df:fd:e9:de:66:fe:85:60:f3:9c:
+    86:09:9c:10:ba:86:5a:91
+exponent2:
+    20:01:a4:c4:5a:f7:af:c3:78:05:90:32:3a:38:2e:
+    8f:b7:dc:38:66:09:fd:51:e3:e5:3a:4b:8e:d5:35:
+    ba:ce:ab:6f:25:cd:80:ae:56:fa:8a:de:86:eb:ee:
+    4e:57:eb:6a:3c:93:2c:20:72:72:a8:58:17:a8:93:
+    1d:a7:85:24:eb:40:eb:19:db:4c:57:30:e9:2f:b6:
+    72:17:90:ff:d2:32:b2:93:02:65:fb:24:dc:2b:c9:
+    cc:9c:d5:66:85:e9:b0:40:42:68:02:01:6b:e2:0e:
+    12:4a:7b:55:c9:af:9f:96:95:ba:16:cf:e5:b2:aa:
+    63:18:3b:64:90:ef:59:f5
+coefficient:
+    6e:5e:9f:36:d9:e4:30:bd:93:bd:05:c3:40:26:59:
+    cf:35:2e:55:d5:cb:3e:4a:bf:45:7e:4b:f4:a8:8a:
+    18:cc:d5:85:c9:70:01:cd:9b:1a:b1:8b:56:12:e6:
+    33:6a:4d:cf:0d:62:77:96:52:c6:eb:26:32:7e:7b:
+    e8:8d:0f:43:c7:e6:25:54:4d:81:20:37:88:f0:09:
+    72:47:f9:fd:4a:a7:86:ed:12:03:19:9b:c4:70:7a:
+    81:f7:d8:75:c1:b5:ff:a3:9f:70:8d:99:18:25:6f:
+    3c:dd:6b:d8:b8:ac:9a:60:55:a1:99:fa:2c:a6:f1:
+    8b:36:ca:74:ae:28:1e:d6
