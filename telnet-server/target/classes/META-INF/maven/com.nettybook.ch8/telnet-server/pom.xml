@@ -6,6 +6,10 @@
   <name>nettybook test project</name>
   <description>메이븐을 활용한 텔넷버서 예제</description>
   
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
   <!-- 프로젝트에서 참조하는 라이브러리의 묶음을 관리하는 xml 엘리먼트이다. -->
   <dependencies>
   	<dependency>
@@ -20,4 +24,24 @@
   		<version>4.1.21.Final</version>
   	</dependency>
   </dependencies>
+  
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.codehaus.mojo</groupId>
+  			<artifactId>exec-maven-plugin</artifactId>
+  			<version>1.4.0</version>
+  			<executions>
+  				<execution>
+  					<goals>
+  						<goal>java</goal>
+  					</goals>
+  				</execution>
+  			</executions>
+  			<configuration>
+  				<mainClass>com.nettybook.ch8.TelnetServer</mainClass>
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </build>
 </project>
