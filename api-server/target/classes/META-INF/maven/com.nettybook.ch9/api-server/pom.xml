@@ -97,7 +97,7 @@
   				</execution>
   			</executions>
   			<configuration>
-  				<mainClass>com.nettybook.ch9.ApiServer</mainClass>
+  				<mainClass>com.nettybook.ch9.ApiServerMain</mainClass>
   			</configuration>
   		</plugin>
   	</plugins>

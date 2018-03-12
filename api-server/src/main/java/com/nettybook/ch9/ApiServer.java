@@ -1,6 +1,9 @@
 package com.nettybook.ch9;
 
 import java.net.InetSocketAddress;
+import java.security.cert.CertificateException;
+
+import javax.net.ssl.SSLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +17,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 @ComponentScan
 public final class ApiServer 
@@ -35,6 +40,7 @@ public final class ApiServer
 	@Qualifier("bossThreadCnt")
 	private int bossThreadCnt;
 	
+	@SuppressWarnings("deprecation")
 	public void start() {
 		EventLoopGroup boss = new NioEventLoopGroup(bossThreadCnt);
 		EventLoopGroup worker = new NioEventLoopGroup(workerThreadCnt);
@@ -54,11 +60,39 @@ public final class ApiServer
 			chFuture = ch.closeFuture();
 			/* 서버 채널의 closeFuture 객체를 가져와서 채널 닫힘 이벤트가 발생할 때까지 대기한다.
 			 * 즉 서버의 메인 스레드는 이 부분에서 멈춘다. */
-			chFuture.sync();
-		} 
-		catch (InterruptedException e) {
+			//chFuture.sync(); 
+			/* <- sync 메서드를 호출하면 코드가 블로킹되어 이후의 코드가 실행되지 않으므로 주석으로 처리했다.
+			 *    이 부분이 이전에 작성했던 코드의 마지막 부분이며 뒤에 새로운 부트스트랩을 추가했다. */
+			
+			final SslContext sslCtx;
+			SelfSignedCertificate ssc = new SelfSignedCertificate();
+			sslCtx = SslContext.newServerContext(ssc.certificate(), ssc.privateKey());
+			
+			/* ssbSb로 새로운 부트스트랩을 추가했다. */
+			ServerBootstrap sslSb = new ServerBootstrap();
+			/* 이벤트 루프는 첫 번째 부트스트랩과 공유하여 사용하도록 설정했다. */
+			sslSb.group(boss, worker)
+			.channel(NioServerSocketChannel.class)
+			.handler(new LoggingHandler())
+			/* SSL 연결을 지우너하려면 SelfSignedCertificate 클래스의 객체를 사용했다.
+			 * SlefSignedCertificate 클래스는 자기 스스로 서명한 인증서를 생성하므로 일반 브라우저에서
+			 * 접속하면 경고 메세지가 출력된다.
+			 * 또한 ApiServerInitializer를 같이 사용하게 되어 SSL 포트로 접근하더라도 동일한 로직을 처리할 수 있다. */
+			.childHandler(new ApiServerInitializer(sslCtx));
+			
+			Channel ch2 = sb.bind(8443).sync().channel();
+			
+			chFuture = ch2.closeFuture();
+			chFuture.sync();		
+		}
+		catch (InterruptedException | CertificateException e) {
 			e.printStackTrace();
-		} finally {
+		}
+		catch (SSLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
 			// TODO: handle finally clause
 			worker.shutdownGracefully();
 			boss.shutdownGracefully();

@@ -6,14 +6,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
+@ImportResource("classptah:spring/hsqlApplicationContext.xml")
 /* ComponentScan 어노테이션은 스프링이 컴포넌트를 검색할 위치를 지정하는데 
  * 여기서는 ApiServer 클래스가 위치한 com.nettybook.ch9 패키지와 
  * 토큰발급 및 사용자 정보조회 클래스가 위치한 com.nettybook.ch9.service 패키지를 지정하였다. */
-@ComponentScan("com.nettybook.ch9, com.nettybook.ch9.service")
+@ComponentScan("com.nettybook.ch9.core, com.nettybook.ch9, com.nettybook.ch9.service")
 /* API 서버의 설정 프로퍼티 파일인 api-server.properties의 위치를 지정했다. */
 @PropertySource("classpath:api-server.properties")
 public class ApiServerConfig 

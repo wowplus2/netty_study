@@ -4,13 +4,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonObject;
+
+import static io.netty.handler.codec.http.HttpHeaders.Names.CONNECTION;
+import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
+import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
+import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
+import static io.netty.handler.codec.http.HttpResponseStatus.CONTINUE;
+import static io.netty.handler.codec.http.HttpResponseStatus.OK;
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -33,6 +40,7 @@ import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder.ErrorDataDec
 import io.netty.handler.codec.http.multipart.InterfaceHttpData.HttpDataType;
 import io.netty.util.CharsetUtil;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
+
 
 /* ApiRequestParser 클래스는 인바운드 이벤트 핸들러를 상속받고 있으며 이벤트 메서드가 실행될 때 FullHttpMessage를 데이터로 받는다. */
 public class ApiRequestParser extends SimpleChannelInboundHandler<FullHttpMessage> 
@@ -64,6 +72,7 @@ public class ApiRequestParser extends SimpleChannelInboundHandler<FullHttpMessag
 		usingHeader.add("email");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	/* 클라이언트가 전송한 데이터가 채널 파이프라인의 모든 디코더를 거치고 난 뒤에 호출된다.
 	 * 메서드 호출에 입력되는 객체는 FullHttpMessage 인터페이스의 구현체이고 HTTP 프로토콜의 모든 데이터가 포함되어 있다. */
@@ -104,12 +113,12 @@ public class ApiRequestParser extends SimpleChannelInboundHandler<FullHttpMessag
 			reqData.put("REQUEST_METHOD", request.getMethod().name());
 		}
 		
-		// Request body 처리.
+		// Request content 처리.
 		/* FullHttpMessage 인터페이스는 HttpRequest, HttpMessage, HttpContent의 최상위 인터페이스이므로 
 		 * HttpContent 인터페이스의 메서드를 사용할 수 있다. */
 		if (msg instanceof HttpContent) {
 			/* FullHttpMessage 인터페이스를 HttpContent 인터페이스로 캐스팅한다. */
-			HttpContent httpContent = (HttpContent) msg;
+			HttpContent httpContent = msg;
 			
 			/* HttpContent 인터페이스로부터 HTTP 본문 데이터를 추출한다. */
 			ByteBuf content = httpContent.content();
@@ -119,7 +128,7 @@ public class ApiRequestParser extends SimpleChannelInboundHandler<FullHttpMessag
 			if (msg instanceof LastHttpContent) {
 				logger.debug("LastHttpContent message received!!" + request.getUri());
 				
-				LastHttpContent trailer = (LastHttpContent) msg;
+				LastHttpContent trailer = msg;
 				
 				/* HTTP 본문에서 HTTP Post 데이터를 추출한다. */
 				readPostData();
@@ -201,6 +210,7 @@ public class ApiRequestParser extends SimpleChannelInboundHandler<FullHttpMessag
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private boolean writeResponse(HttpObject currentObj, ChannelHandlerContext ctx) {
 		// TODO Auto-generated method stub
 		// Decide whether to close the connection or not.

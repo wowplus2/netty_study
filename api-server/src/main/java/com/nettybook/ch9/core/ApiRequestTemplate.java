@@ -29,6 +29,7 @@ public abstract class ApiRequestTemplate implements ApiRequest
 		logger.info("request data : " + this.reqData);
 	}
 	
+	@Override
 	public void executeService() {
 		// TODO Auto-generated method stub
 		try {
@@ -51,12 +52,14 @@ public abstract class ApiRequestTemplate implements ApiRequest
 		}
 	}
 
+	@Override
 	public JsonObject getApiResult() {
 		// TODO Auto-generated method stub
 		/* executeService 메서드가 호출된 이후에 service 메서드에서 할당한 API 처리 결과를 돌려준다. */
 		return this.apiResult;
 	}
 
+	@Override
 	public void requestParamValidation() throws RequestParamException {
 		// TODO Auto-generated method stub
 		if (getClass().getClasses().length == 0) {
